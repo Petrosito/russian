@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Основные разделы русского языка</title>
+    <title>Тест по русскому языку</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -47,20 +47,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        ul {
-            list-style: disc;
-            margin-left: 30px;
-            margin-bottom: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        .image-wrapper {
-            margin: 20px 0;
-        }
-        
         button {
             background-color: #4CAF50;
             color: white;
@@ -76,72 +62,157 @@
             background-color: #45a049;
         }
 
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto;
+        }
+
+        .answer-option {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .answer-option:hover {
+            background: #e9e9e9;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #d9534f;
+        }
+
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Основные разделы русского языка</h1>
-</header>
+<div class="container" id="indexSection">
+    <header>
+        <h1>Основные разделы русского языка</h1>
+    </header>
 
-<section class="section">
-    <h2>1. Фонетика</h2>
+    <section class="section">
+        <h2>1. Фонетика</h2>
+        <p>Фонетика изучает звуковую систему языка: звуки, их классы, свойства и функции в речи. В русском языке выделяют гласные и согласные звуки...</p>
+    </section>
 
-    <p>Фонетика изучает звуковую систему языка: звуки, их классы, свойства и функции в речи. В русском языке выделяют гласные и согласные звуки. Гласные звуки – это звуки, при произнесении которых поток воздуха свободно проходит через полость рта. Примеры гласных: а, о, е, и.</p>
-    <p>Согласные звуки – это звуки, при произнесении которых поток воздуха встречает преграды. Примеры согласных: п, б, т, с, ш.</p>
+    <section class="section">
+        <h2>2. Морфология</h2>
+        <p>Морфология занимается изучением форм слов и их значений...</p>
+    </section>
 
-    <h3>Примеры звуков</h3>
-    <p>Гласные: "а", "о", "и" — произносятся с участием открытого рта. Согласные: "п" в слове "пират" и "с" в слове "солнце".</p>
-</section>
+    <section class="section">
+        <h2>3. Синтаксис</h2>
+        <p>Синтаксис изучает, как слова объединяются в предложения...</p>
+    </section>
 
-<section class="section">
-    <h2>2. Морфология</h2>
+    <section class="section">
+        <h2>4. Лексикология</h2>
+        <p>Лексикология – это раздел лексикона, изучающий слова, их значение и употребление...</p>
+    </section>
 
-    <p>Морфология занимается изучением форм слов и их значений. В русском языке слова делятся на части речи: существительные, прилагательные, глаголы и другие.</p>
+    <section class="section">
+        <h2>5. Стилистика</h2>
+        <p>Стилистика изучает стиль речи и его особенности...</p>
+    </section>
 
-    <h3>Части речи</h3>
-    <ul>
-        <li>Существительные: стол, книга, Москва.</li>
-        <li>Прилагательные: красивый, большой, интересный.</li>
-        <li>Глаголы: бегать, читать, думать.</li>
-    </ul>
-</section>
+    <button id="toQuizButton">Перейти к Тесту по Русскому Языку</button>
+</div>
 
-<section class="section">
-    <h2>3. Синтаксис</h2>
+<div class="container" id="quizSection" style="display: none;">
+    <h1>Тест по русскому языку</h1>
 
-    <p>Синтаксис изучает, как слова объединяются в предложения. В русском языке основное слово в предложении – это подлежащее, а дополнительное – сказуемое.</p>
+    <div class="section" id="quiz">
+        <div id="question" class="question"></div>
+        <div id="answers"></div>
+        <button id="submitAnswer">ОК</button>
+        <div id="result"></div>
+        <button id="nextButton" style="display: none;">Далее</button>
+    </div>
+    
+    <button id="toIndexButton">Перейти к Индексу Русского Языка</button>
+</div>
 
-    <h3>Структура предложения</h3>
-    <p>Пример: "Кошка (подлежащее) спит (сказуемое)." Это простое предложение состоит из двух основных частей.</p>
-</section>
+<script>
+    let currentQuestion = 0;
+    let attempts = 0;
+    const maxAttempts = 3;
 
-<section class="section">
-    <h2>4. Лексикология</h2>
+    const questions = [
+        { question: "Гласные звуки – это звуки, при произнесении которых поток воздуха свободно проходит через полость рта. Гласные звуки можно разделить на: ___", answers: ["Гласные и согласные", "Гласные и дифтонги", "Гласные и носовые"], correct: 0 },
+        { question: "Согласные звуки – это звуки, при произнесении которых поток воздуха встречает преграды. Например, согласные звуки: ___", answers: ["а, е, и", "п, б, т", "и, о, у"], correct: 1 },
+        { question: "Синтаксис изучает, как слова объединяются в предложения. Основное слово в предложении – это: ___", answers: ["сказуемое", "подлежащее", "дополнение"], correct: 1 },
+        { question: "В русском языке слова можно делить на части речи. Примеры частей речи: ___", answers: ["сущ, прил, глаг", "глагол, предлог, междометие", "предлог, частица, артикль"], correct: 0 },
+        { question: "Лексикология изучает слова, их значение и употребление. Слова делятся на несколько категорий, например: ___", answers: ["заимствованные, производные, однокоренные", "существительные, глаголы", "сказуемые, подлежащие"], correct: 0 },
+        { question: "Стилистика изучает стиль речи и его особенности. Различают разные стили в зависимости от ситуации общения, например: ___", answers: ["научный, разговорный, художественный", "разговорный, письменный, устный", "письменный, устный, образный"], correct: 0 }
+    ];
 
-    <p>Лексикология – это раздел лексикона, изучающий слова, их значение и употребление. В русском языке слова можно разделить на несколько категорий.</p>
+    document.getElementById('toQuizButton').onclick = function() {
+        document.getElementById('indexSection').style.display = 'none';
+        document.getElementById('quizSection').style.display = 'block';
+        displayQuestion();
+    };
 
-    <h3>Типы слов</h3>
-    <ul>
-        <li>Словарные: слова, встречающиеся в словарях.</li>
-        <li>Заимствованные: слова, пришедшие из других языков, например, "компьютер".</li>
-        <li>Неологизмы: новые слова, появившиеся в языке в последнее время, например, "интернет".</li>
-    </ul>
-</section>
+    document.getElementById('toIndexButton').onclick = function() {
+        document.getElementById('quizSection').style.display = 'none';
+        document.getElementById('indexSection').style.display = 'block';
+        resetQuiz();
+    };
 
-<section class="section">
-    <h2>5. Стилистика</h2>
+    document.getElementById('submitAnswer').onclick = function() {
+        const selected = document.querySelector('input[name="answer"]:checked');
+        if (!selected) return alert('Пожалуйста, выберите ответ.');
 
-    <p>Стилистика изучает стиль речи и его особенности. В зависимости от ситуации общения выделяют разные стили: разговорный, научный, публицистический и художественный.</p>
+        const answer = parseInt(selected.value);
+        if (answer === questions[currentQuestion].correct) {
+            alert('Правильно!');
+            document.getElementById('nextButton').style.display = 'block';
+        } else {
+            attempts++;
+            alert('Неправильно. Попробуйте снова.');
+            if (attempts >= maxAttempts) {
+                alert('Вы не прошли тест. Попробуйте снова.');
+                resetQuiz();
+            }
+        }
+    };
 
-    <h3>Примеры стилей</h3>
-    <p>Разговорный стиль используется в повседневной жизни: "Привет, как дела?"</p>
-    <p>Научный стиль: "Исследование показывает, что..."</p>
-</section>
+    document.getElementById('nextButton').onclick = function() {
+        currentQuestion++;
+        displayQuestion();
+    };
 
-<a href="russian_quiz.html">
-    <button>Перейти к Тесту по Русскому Языку</button>
-</a>
+    function displayQuestion() {
+        if (currentQuestion < questions.length) {
+            const question = questions[currentQuestion];
+            document.getElementById('question').innerHTML = question.question;
+            document.getElementById('answers').innerHTML = question.answers.map((answer, index) => {
+                return `<div class="answer-option"><input type="radio" name="answer" value="${index}">${answer}</div>`;
+            }).join('');
+            document.getElementById('nextButton').style.display = 'none'; // Скрываем кнопку "Далее"
+        } else {
+            alert('Поздравляем! Вы прошли тест.');
+        }
+    }
 
+    function resetQuiz() {
+        currentQuestion = 0;
+        attempts = 0;
+        questions.sort(() => 0.5 - Math.random());
+        displayQuestion();
+        document.getElementById('result').innerHTML = '';
+    }
+
+</script>
 </body>
 </html>
